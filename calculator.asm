@@ -32,9 +32,15 @@ mul_op: .asciiz "O resultado da multiplicação é "
 leave: .asciiz "Bye\n"
 br: .asciiz "\n-------------------------------------------------------\n\n"
 
-pot_op: .asciiz "O resultado da divisão é "
-sqr_op: .asciiz "O resultado da divisão é "
-tab_op: .asciiz "O resultado da divisão é "
+########################################################################################################################
+# WIP
+########################################################################################################################
+
+pot_op: .asciiz "O resultado da potência é "
+sqr_op: .asciiz "A raiz quadrada é "
+tab_op: .asciiz "Tabuada:\n"
+
+########################################################################################################################
 
 .text
 
@@ -111,21 +117,21 @@ j main                    # Voltar para função main
 
 add_fn:
 
-lw $t1, 0 ($sp)
-lw $t2, 4 ($sp)
+lw $t1, 0 ($sp)           # Carrega o inteiro na posição 0 em relação ao $sp (ponteiro da pilha) em $t1
+lw $t2, 4 ($sp)           # Carrega o inteiro na posição 4 em relação ao $sp (ponteiro da pilha) em $t2
 
-add $t0, $t1, $t2
+add $t0, $t1, $t2         # $t0 = $t1 + $t2
 
-li $v0, 4
-la $a0, add_op
+li $v0, 4                 # Passa código de imprimir string para $v0
+la $a0, add_op            # Passa endereço de add_op (mensagem de resultado da soma) para $a0
 syscall                   # Executa chamada de sistema
 
-li $v0, 1
+li $v0, 1                 # Passa código de imprimir inteiro para $v0
 move $a0, $t0
 syscall                   # Executa chamada de sistema
 
-li $v0, 4
-la $a0, br
+li $v0, 4                 # Passa código de imprimir string para $v0
+la $a0, br                # Passa endereço de br (mensagem de quebra de linha) para $a0
 syscall                   # Executa chamada de sistema
 
 j main                    # Voltar para função main
@@ -136,21 +142,21 @@ j main                    # Voltar para função main
 
 sub_fn:
 
-lw $t1, 0 ($sp)
-lw $t2, 4 ($sp)
+lw $t1, 0 ($sp)           # Carrega o inteiro na posição 0 em relação ao $sp (ponteiro da pilha) em $t1
+lw $t2, 4 ($sp)           # Carrega o inteiro na posição 4 em relação ao $sp (ponteiro da pilha) em $t2
 
-sub $t0, $t1, $t2
+sub $t0, $t1, $t2         # $t0 = $t1 - $t2
 
-li $v0, 4
-la $a0, sub_op
+li $v0, 4                 # Passa código de imprimir string para $v0
+la $a0, sub_op            # Passa endereço de sub_op (mensagem de resultado da subtração) para $a0
 syscall                   # Executa chamada de sistema
 
-li $v0, 1
+li $v0, 1                 # Passa código de imprimir inteiro para $v0
 move $a0, $t0
 syscall                   # Executa chamada de sistema
 
-li $v0, 4
-la $a0, br
+li $v0, 4                 # Passa código de imprimir string para $v0
+la $a0, br                # Passa endereço de br (mensagem de quebra de linha) para $a0
 syscall                   # Executa chamada de sistema
 
 j main                    # Voltar para função main
@@ -161,29 +167,29 @@ j main                    # Voltar para função main
 
 div_fn:
 
-lw $t1, 0 ($sp)
-lw $t2, 4 ($sp)
+lw $t1, 0 ($sp)           # Carrega o inteiro na posição 0 em relação ao $sp (ponteiro da pilha) em $t1
+lw $t2, 4 ($sp)           # Carrega o inteiro na posição 4 em relação ao $sp (ponteiro da pilha) em $t2
 
-div $t1, $t2
+div $t1, $t2              # $t1 / $t2, resultado vai para LO e resto para HI
 
-li $v0, 4
-la $a0, div_op
+li $v0, 4                 # Passa código de imprimir string para $v0
+la $a0, div_op            # Passa endereço de div_op (mensagem de resultado da divisão) para $a0
 syscall                   # Executa chamada de sistema
 
-li $v0, 1
-mflo $a0
+li $v0, 1                 # Passa código de imprimir inteiro para $v0
+mflo $a0                  # Carrega o resultado da divisão, armazenado no registrado especial LO, em $a0
 syscall                   # Executa chamada de sistema
 
-li $v0, 4
-la $a0, mod_op
+li $v0, 4                 # Passa código de imprimir string para $v0
+la $a0, mod_op            # Passa endereço de mod_op (mensagem de resto da divisão) para $a0
 syscall                   # Executa chamada de sistema
 
-li $v0, 1
-mfhi $a0
+li $v0, 1                 # Passa código de imprimir inteiro para $v0
+mfhi $a0                  # Carrega o resto da divisão, armazenado no registrado especial HI, em $a0
 syscall                   # Executa chamada de sistema
 
-li $v0, 4
-la $a0, br
+li $v0, 4                 # Passa código de imprimir string para $v0
+la $a0, br                # Passa endereço de br (mensagem de quebra de linha) para $a0
 syscall                   # Executa chamada de sistema
 
 j main                    # Voltar para função main
@@ -194,21 +200,21 @@ j main                    # Voltar para função main
 
 mul_fn:
 
-lw $t1, 0 ($sp)
-lw $t2, 4 ($sp)
+lw $t1, 0 ($sp)           # Carrega o inteiro na posição 0 em relação ao $sp (ponteiro da pilha) em $t1
+lw $t2, 4 ($sp)           # Carrega o inteiro na posição 4 em relação ao $sp (ponteiro da pilha) em $t2
 
-mult $t1, $t2
+mult $t1, $t2             # $t1 * $t2, resultado vai para LO e overflow para HI
 
-li $v0, 4
-la $a0, mul_op
+li $v0, 4                 # Passa código de imprimir string para $v0
+la $a0, mul_op            # Passa endereço de mul_op (mensagem de resultado da multiplicação) para $a0
 syscall                   # Executa chamada de sistema
 
-li $v0, 1
-mflo $a0
+li $v0, 1                 # Passa código de imprimir inteiro para $v0
+mflo $a0                  # Carrega o resultado da multiplicação, armazenado no registrado especial LO, em $a0
 syscall                   # Executa chamada de sistema
 
-li $v0, 4
-la $a0, br
+li $v0, 4                 # Passa código de imprimir string para $v0
+la $a0, br                # Passa endereço de br (mensagem de quebra de linha) para $a0
 syscall                   # Executa chamada de sistema
 
 j main                    # Voltar para função main
