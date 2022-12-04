@@ -6,11 +6,6 @@
 # Descrição da atividade:
 # Calculadora capaz de realizar soma, subtração, multiplicação e divisão de dois números
 # Capaz ainda de obter potência, raiz quadrada e tabuada de um único número
-#
-# Implementado até agora:
-# - Tela inicial mostrando os códigos de operações
-# - Soma, subtração, multiplicação e divisão de dois números
-# - Função de finalização da execução do programa
 ########################################################################################################################
 
 .data
