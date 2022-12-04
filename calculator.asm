@@ -311,7 +311,7 @@ tab_loop:
 
 add.d $f2, $f2, $f4       # $f2 = $f2 + $f4
 
-li $v0, 3                 # Passa código de imprimir inteiro para $v0
+li $v0, 3                 # Passa código de imprimir double para $v0
 mov.d $f12, $f0           # $f12 = $f0
 syscall                   # Executa chamada de sistema
 
